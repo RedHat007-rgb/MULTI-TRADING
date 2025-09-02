@@ -7,6 +7,7 @@ import { MarketDataModule } from './market-data/market-data.module';
     TRPCModule.forRoot({
       autoSchemaFile: '../../packages/trpc/src/server',
     }),
+
     MarketDataModule,
   ],
   controllers: [],
