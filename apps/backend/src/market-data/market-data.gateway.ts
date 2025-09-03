@@ -20,7 +20,8 @@ export class MarketDataGateway implements OnGatewayConnection, OnGatewayInit {
 
   async handleConnection(client: WebSocket, req: IncomingMessage) {
     try {
-      const token: string | undefined | string[] = req.headers['token'];
+      const token: string | undefined | string[] =
+        req.headers['token'] || req.headers['authorization'];
       if (!token) {
         throw new UnauthorizedException('Please login again...');
       }
@@ -30,6 +31,7 @@ export class MarketDataGateway implements OnGatewayConnection, OnGatewayInit {
       console.log(verification);
       if (!verification) {
         client.close();
+        return;
       }
     } catch {
       client.close();
